@@ -1,11 +1,10 @@
 module github.com/prometheus/prometheus/documentation/examples/remote_storage
 
 go 1.22.7
-
 require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/snappy v0.0.4
+	github.com/golang/snappy v1.0.0
 	github.com/influxdata/influxdb v1.11.8
 	github.com/prometheus/client_golang v1.20.5
 	github.com/prometheus/common v0.61.0
