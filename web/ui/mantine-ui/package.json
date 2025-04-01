@@ -35,7 +35,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/lodash": "^4.17.13",
-    "@types/sanitize-html": "^2.13.0",
+    "@types/sanitize-html": "^2.15.0",
     "@uiw/react-codemirror": "^4.23.6",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.10",
@@ -45,7 +45,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
-    "sanitize-html": "^2.13.1",
+    "sanitize-html": "^2.15.0",
     "uplot": "^1.6.31",
     "uplot-react": "^1.2.2",
     "use-query-params": "^2.2.1"
