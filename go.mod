@@ -2,7 +2,7 @@ module github.com/prometheus/prometheus
 
 go 1.22.7
 
-toolchain go1.23.4
+toolchain go1.24.1
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.16.0
@@ -37,7 +37,7 @@ require (
 	github.com/hashicorp/consul/api v1.30.0
 	github.com/hashicorp/nomad/api v0.0.0-20241218080744-e3ac00f30eec
 	github.com/hetznercloud/hcloud-go/v2 v2.17.1
-	github.com/ionos-cloud/sdk-go/v6 v6.3.0
+	github.com/ionos-cloud/sdk-go/v6 v6.3.3
 	github.com/json-iterator/go v1.1.12
 	github.com/klauspost/compress v1.17.11
 	github.com/kolo/xmlrpc v0.0.0-20220921171641-a4b6fa1dd06b
