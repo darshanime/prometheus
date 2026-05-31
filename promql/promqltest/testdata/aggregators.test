@@ -366,6 +366,31 @@ eval range from 0m to 50m step 5m count(topk(scalar(foo), http_requests))
 eval range from 0m to 50m step 5m count(bottomk(scalar(foo), http_requests))
 	{} 1 2 3 4 5 6 7 8 9 9 3
 
+# Bug #15908: topk/bottomk must break value ties deterministically using labels,
+# and the label tie-break must never override the value comparison.
+load 1m
+  tie{a="1"} 10
+  tie{a="2"} 5
+  tie{a="3"} 1
+  tie{a="4"} 5
+  tie{a="5"} 5
+
+eval instant at 0m topk(1, tie)
+  tie{a="1"} 10
+
+eval instant at 0m bottomk(1, tie)
+  tie{a="3"} 1
+
+eval instant at 0m topk(2, tie)
+	expect ordered
+	tie{a="1"} 10
+	tie{a="2"} 5
+
+eval instant at 0m bottomk(2, tie)
+	expect ordered
+	tie{a="3"} 1
+	tie{a="2"} 5
+
 # Tests for histogram: should ignore histograms.
 eval instant at 50m topk(100, http_requests_histogram)
     expect info

@@ -3971,8 +3971,11 @@ seriesLoop:
 				annos.Add(annotations.NewHistogramIgnoredInAggregationInfo("topk", e.PosRange))
 			case int64(len(group.heap)) < k:
 				heap.Push(&group.heap, &s)
-			case group.heap[0].F < s.F || (math.IsNaN(group.heap[0].F) && !math.IsNaN(s.F)) || labels.Compare(group.heap[0].Metric, s.Metric) < 0:
+			case group.heap[0].F < s.F || (math.IsNaN(group.heap[0].F) && !math.IsNaN(s.F)) ||
+				(group.heap[0].F == s.F && labels.Compare(s.Metric, group.heap[0].Metric) < 0):
 				// This new element is bigger than the previous smallest element - overwrite that.
+				// On an exact value tie, the series with the lexicographically smaller label
+				// set wins, so the kept set is deterministic regardless of input order.
 				group.heap[0] = s
 				if k > 1 {
 					heap.Fix(&group.heap, 0) // Maintain the heap invariant.
@@ -3987,8 +3990,11 @@ seriesLoop:
 				annos.Add(annotations.NewHistogramIgnoredInAggregationInfo("bottomk", e.PosRange))
 			case int64(len(group.heap)) < k:
 				heap.Push((*vectorByReverseValueHeap)(&group.heap), &s)
-			case group.heap[0].F > s.F || (math.IsNaN(group.heap[0].F) && !math.IsNaN(s.F)) || labels.Compare(group.heap[0].Metric, s.Metric) < 0:
+			case group.heap[0].F > s.F || (math.IsNaN(group.heap[0].F) && !math.IsNaN(s.F)) ||
+				(group.heap[0].F == s.F && labels.Compare(s.Metric, group.heap[0].Metric) < 0):
 				// This new element is smaller than the previous biggest element - overwrite that.
+				// On an exact value tie, the series with the lexicographically smaller label
+				// set wins, so the kept set is deterministic regardless of input order.
 				group.heap[0] = s
 				if k > 1 {
 					heap.Fix((*vectorByReverseValueHeap)(&group.heap), 0) // Maintain the heap invariant.
